@@ -1,30 +1,49 @@
 package com.example.homeworkcalculator;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Main2Activity extends AppCompatActivity {
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class HistoryFragment extends Fragment {
     TextView textView;
     Button share,openCalc;
     RecyclerView recyclerView;
     MainAdapter adapter;
-    
+
+    public HistoryFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-        textView=findViewById(R.id.text);
-        share=findViewById(R.id.share);
-        openCalc=findViewById(R.id.openCalc);
-        recyclerView=findViewById(R.id.recyclerView);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_history, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        textView=view.findViewById(R.id.text);
+        share=view.findViewById(R.id.share);
+        openCalc=view.findViewById(R.id.openCalc);
+        recyclerView=view.findViewById(R.id.recyclerView);
         adapter=new MainAdapter();
         recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager manager=new LinearLayoutManager(this);
@@ -50,15 +69,4 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==100&& resultCode ==RESULT_OK && data!=null){
-            String result=data.getStringExtra("result");
-            textView.setText(result);
-            adapter.addText(result);
-        }
-
     }
-}
