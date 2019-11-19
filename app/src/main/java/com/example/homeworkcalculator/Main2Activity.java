@@ -56,7 +56,6 @@ public class Main2Activity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==100&& resultCode ==RESULT_OK && data!=null){
             String result=data.getStringExtra("result");
-            textView.setText(result);
             adapter.addText(result);
         }
 
